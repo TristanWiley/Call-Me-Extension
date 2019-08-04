@@ -11,6 +11,7 @@ export default class App extends React.Component {
     //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
     this.twitch = window.Twitch ? window.Twitch.ext : null;
     this.state = {
+      authToken: null,
       finishedLoading: false,
       slideOpen: true,
       requestsOpen: true
@@ -31,27 +32,12 @@ export default class App extends React.Component {
       });
 
       this.twitch.onAuthorized(auth => {
-        console.log(auth);
-
         this.Authentication.setToken(auth.token, auth.userId);
-
-        console.log(auth.token);
-        fetch("https://burlywood-bat-1779.twil.io/twitch", {
-          method: "POST",
-          body: JSON.stringify({
-            token: auth.token,
-            number: "+13155729525",
-            question:
-              "My question is something like this and lorem ipsum dolor text."
-          })
-        })
-          .then(response => response.json())
-          .then(json => console.log(json));
 
         this.twitch.rig.log(auth);
         if (!this.state.finishedLoading) {
           this.setState(() => {
-            return { finishedLoading: true };
+            return { authToken: auth.token, finishedLoading: true };
           });
         }
       });
@@ -73,6 +59,23 @@ export default class App extends React.Component {
       requestsOpen: config.requestsOpen || false,
       slideOpen: slideOpenStatus
     });
+  }
+
+  submitQuestion() {
+    const { question, number, authToken } = this.state
+    fetch("https://burlywood-bat-1779.twil.io/twitch", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        token: authToken,
+        number,
+        question
+      })
+    })
+      .then(response => response.json())
+      .then(json => console.log(json));
   }
 
   render() {
@@ -97,8 +100,8 @@ export default class App extends React.Component {
               </a>
             </React.Fragment>
           ) : (
-            <p>The broadcaster is not currently accepting questions!</p>
-          )}
+              <p>The broadcaster is not currently accepting questions!</p>
+            )}
 
           <div className={`content${slideOpen ? " slide_up" : ""}`}>
             <div className="inner">
@@ -128,7 +131,7 @@ export default class App extends React.Component {
                 <input placeholder="+12345678900" />
                 <label>Question</label>
                 <input placeholder="I want to know more about..." />
-                <a className="call_button">Submit</a>
+                <a className="call_button" onClick={() => this.submitQuestion()}>Submit</a>
               </div>
             </div>
           </div>

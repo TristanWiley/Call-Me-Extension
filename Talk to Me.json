@@ -4,9 +4,34 @@
   "backendFolderName": "",
   "extensionViews": [
     {
-      "id": "3",
-      "label": "Config",
-      "channelId": "265737932",
+      "id": "4",
+      "label": "User panel",
+      "channelId": "38891062",
+      "configurationAnchor": "panel",
+      "displayChannelName": "lesirhype",
+      "type": "panel",
+      "features": {
+        "isBitsEnabled": false,
+        "isChatEnabled": false,
+        "isSubscriptionStatusAvailable": false
+      },
+      "linked": true,
+      "linkedUserId": "38891062",
+      "mode": "viewer",
+      "isPopout": false,
+      "role": "Logged-In Viewer",
+      "x": 0,
+      "y": 0,
+      "orientation": "Portrait",
+      "frameSize": {
+        "width": 1280,
+        "height": 720
+      }
+    },
+    {
+      "id": "5",
+      "label": "Broadcaster",
+      "channelId": "38891062",
       "configurationAnchor": "panel",
       "displayChannelName": "lesirhype",
       "type": "dashboard",
@@ -29,9 +54,9 @@
       }
     },
     {
-      "id": "5",
-      "label": "",
-      "channelId": "265737932",
+      "id": "6",
+      "label": "asd",
+      "channelId": "38891062",
       "configurationAnchor": "panel",
       "displayChannelName": "lesirhype",
       "type": "panel",
@@ -40,11 +65,11 @@
         "isChatEnabled": false,
         "isSubscriptionStatusAvailable": false
       },
-      "linked": false,
-      "linkedUserId": "",
+      "linked": true,
+      "linkedUserId": "265737932",
       "mode": "viewer",
       "isPopout": false,
-      "role": "Broadcaster",
+      "role": "Logged-In Viewer",
       "x": 0,
       "y": 0,
       "orientation": "Portrait",
@@ -107,7 +132,7 @@
     "whitelistedPanelUrls": []
   },
   "frontendCommand": "npm start",
-  "frontendFolderName": "/Users/triswile/Documents/extensions/extensions-boilerplate",
+  "frontendFolderName": "/home/tristan/Documents/Twitch/extensions/Call-Me-extension/extensions-boilerplate",
   "name": "Talk to Me",
   "certificateExceptions": [],
   "version": 1

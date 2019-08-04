@@ -12,6 +12,7 @@ export default class LiveConfigPage extends React.Component {
     //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
     this.twitch = window.Twitch ? window.Twitch.ext : null;
     this.state = {
+      token: null,
       finishedLoading: false,
       requestsOpen: false,
       slideOpen: false
@@ -32,7 +33,7 @@ export default class LiveConfigPage extends React.Component {
       this.twitch.onAuthorized(auth => {
         this.Authentication.setToken(auth.token, auth.userId);
 
-        this.setState({ finishedLoading: true });
+        this.setState({ token: auth.token, finishedLoading: true });
       });
     }
   }
@@ -57,7 +58,7 @@ export default class LiveConfigPage extends React.Component {
   }
 
   render() {
-    const { phoneNumber, requestsOpen, slideOpen } = this.state;
+    const { token, phoneNumber, requestsOpen, slideOpen } = this.state;
 
     if (this.state.finishedLoading) {
       return (
@@ -78,7 +79,7 @@ export default class LiveConfigPage extends React.Component {
           <label
             className={`requestsButton ${
               requestsOpen ? "activated" : "deactivated"
-            }`}
+              }`}
             htmlFor="requestsOpen"
           >
             <svg
@@ -115,13 +116,14 @@ export default class LiveConfigPage extends React.Component {
           )}
           <div className={`content${slideOpen ? " slide_up" : ""}`}>
             <div className="inner">
-              <CallOverview
+              {token && <CallOverview
+                token={token}
                 closeModal={() =>
                   this.setState({
                     slideOpen: false
                   })
                 }
-              />
+              />}
             </div>
           </div>
         </div>

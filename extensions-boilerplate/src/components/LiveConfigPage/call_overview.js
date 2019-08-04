@@ -5,24 +5,29 @@ import "./CallOverview.css";
 
 const testData = [
   {
-    username: "lesirhype",
-    question: "My question is something like this and lorem ipsum dolor text."
+    twitch_username: "lesirhype",
+    text: "My question is something like this and lorem ipsum dolor text.",
+    phone_number: "+13155729525"
   },
   {
-    username: "testusername",
-    question: "My question is something like this and lorem ipsum dolor text."
+    twitch_username: "testusername",
+    text: "My question is something like this and lorem ipsum dolor text.",
+    phone_number: "+13155729525"
   },
   {
-    username: "someoneelse",
-    question: "My question is something like this and lorem ipsum dolor text."
+    twitch_username: "someoneelse",
+    text: "My question is something like this and lorem ipsum dolor text.",
+    phone_number: "+13155729525"
   },
   {
-    username: "BlueLava",
-    question: "My question is something like this and lorem ipsum dolor text."
+    twitch_username: "BlueLava",
+    text: "My question is something like this and lorem ipsum dolor text.",
+    phone_number: "+13155729525"
   },
   {
-    username: "mauerbac",
-    question: "My question is something like this and lorem ipsum dolor text."
+    twitch_username: "mauerbac",
+    text: "My question is something like this and lorem ipsum dolor text.",
+    phone_number: "+13155729525"
   }
 ];
 
@@ -31,29 +36,50 @@ export default class CallOverview extends React.Component {
     super(props);
 
     this.state = {
-      calls: testData,
+      questions: testData,
       searchQuery: ""
     };
 
     this.declineCall = this.declineCall.bind(this);
+    this.getQuestions = this.getQuestions.bind(this);
+  }
+
+  componentDidMount() {
+    this.getQuestions()
+  }
+
+  getQuestions() {
+    const { token } = this.props
+
+    fetch("https://burlywood-bat-1779.twil.io/questions", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        token
+      })
+    })
+      .then(response => response.json())
+      .then(json => this.setState({ questions: json.questions }))
   }
 
   declineCall(id) {
-    const { calls } = this.state;
+    const { questions } = this.state;
 
-    calls.splice(id, 1);
+    questions.splice(id, 1);
 
-    this.setState({ calls });
+    this.setState({ questions });
   }
 
   render() {
-    const { calls, searchQuery } = this.state;
+    const { questions, searchQuery } = this.state;
     const { closeModal } = this.props;
 
     return (
       <div className="call_overview">
         <div className="header">
-          <span>Calls</span>
+          <span>questions</span>
           <div className="close">
             <a onClick={() => console.log("REFRESH")}>
               <svg
@@ -97,15 +123,15 @@ export default class CallOverview extends React.Component {
           />
         </div>
         <div className="calls">
-          {calls
-            .filter(call =>
-              call.username.toLowerCase().includes(searchQuery.toLowerCase())
+          {questions
+            .filter(question =>
+              question.twitch_username.toLowerCase().includes(searchQuery.toLowerCase())
             )
-            .map((call, id) => (
-              <React.Fragment key={call.username}>
+            .map((question, id) => (
+              <React.Fragment key={question.twitch_username}>
                 <div className="call">
-                  <strong>{call.username}</strong>
-                  <p>{call.question}</p>
+                  <strong>{question.twitch_username}</strong>
+                  <p>{question.text}</p>
                 </div>
                 <div className="buttons">
                   <a className="accept" onClick={() => console.log("Call")}>
