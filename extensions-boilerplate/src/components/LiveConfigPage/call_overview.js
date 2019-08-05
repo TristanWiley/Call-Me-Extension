@@ -79,9 +79,9 @@ export default class CallOverview extends React.Component {
     return (
       <div className="call_overview">
         <div className="header">
-          <span>questions</span>
+          <span>Questions</span>
           <div className="close">
-            <a onClick={() => console.log("REFRESH")}>
+            <a onClick={() => this.getQuestions()}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

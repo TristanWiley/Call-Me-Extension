@@ -15,7 +15,8 @@ export default class LiveConfigPage extends React.Component {
       token: null,
       finishedLoading: false,
       requestsOpen: false,
-      slideOpen: false
+      slideOpen: false,
+      phoneHidden: false
     };
 
     this.toggleRequests = this.toggleRequests.bind(this);
@@ -58,20 +59,22 @@ export default class LiveConfigPage extends React.Component {
   }
 
   render() {
-    const { token, phoneNumber, requestsOpen, slideOpen } = this.state;
+    const { token, phoneNumber, requestsOpen, slideOpen, phoneHidden } = this.state;
 
     if (this.state.finishedLoading) {
       return (
         <div className="LiveConfigPage">
           <div className="top">
-            <input
+            {!phoneHidden && <input
               className="text_input"
               placeholder="Your phone number"
               onChange={e => {
                 this.setState({ phoneNumber: e.currentTarget.value });
               }}
               value={phoneNumber}
-            />
+            />}
+            <br />
+            <a className="cursor_pointer" onClick={() => this.setState({ phoneHidden: !phoneHidden })}>{phoneHidden ? "Show Input" : "Hide Input"}</a>
           </div>
           <h1 className="no_select">
             {requestsOpen ? "Disable" : "Enable"} Calls
@@ -111,7 +114,7 @@ export default class LiveConfigPage extends React.Component {
                 })
               }
             >
-              Call Requests (6)
+              Call Requests
             </a>
           )}
           <div className={`content${slideOpen ? " slide_up" : ""}`}>

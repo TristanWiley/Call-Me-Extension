@@ -52,31 +52,6 @@
         "width": 1280,
         "height": 720
       }
-    },
-    {
-      "id": "6",
-      "label": "asd",
-      "channelId": "38891062",
-      "configurationAnchor": "panel",
-      "displayChannelName": "lesirhype",
-      "type": "panel",
-      "features": {
-        "isBitsEnabled": false,
-        "isChatEnabled": false,
-        "isSubscriptionStatusAvailable": false
-      },
-      "linked": true,
-      "linkedUserId": "265737932",
-      "mode": "viewer",
-      "isPopout": false,
-      "role": "Logged-In Viewer",
-      "x": 0,
-      "y": 0,
-      "orientation": "Portrait",
-      "frameSize": {
-        "width": 1280,
-        "height": 720
-      }
     }
   ],
   "manifest": {

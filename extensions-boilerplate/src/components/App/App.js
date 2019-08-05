@@ -128,9 +128,9 @@ export default class App extends React.Component {
               </div>
               <div className="ask-input">
                 <label>Phone Number</label>
-                <input placeholder="+12345678900" />
+                <input placeholder="+12345678900" onChange={(e) => this.setState({ number: e.currentTarget.value })} />
                 <label>Question</label>
-                <input placeholder="I want to know more about..." />
+                <input placeholder="I want to know more about..." onChange={(e) => this.setState({ question: e.currentTarget.value })} />
                 <a className="call_button" onClick={() => this.submitQuestion()}>Submit</a>
               </div>
             </div>

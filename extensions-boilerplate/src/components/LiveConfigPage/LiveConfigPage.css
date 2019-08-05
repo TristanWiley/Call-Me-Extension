@@ -88,6 +88,11 @@ html, body {
 .top {
   position: absolute;
   top: 10px;
+  text-align: center;
+}
+
+.cursor_pointer {
+  cursor: pointer;
 }
 
 .text_input {
